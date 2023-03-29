@@ -5,6 +5,6 @@ incluindo avaliações e comentários de usuários sobre estes produtos. O traba
 contendo dados sobre compras de produtos e elaboração de um Dashboard, um painel para monitoramento dos dados de compra, gerando
 uma série de relatórios. Os dados para o banco de dados serão fornecidos de um arquivo de entrada que será indicado aos alunos.
 
-[x] - Link vídeo de instalação PostgreSQL (Windows): https://www.youtube.com/watch?v=L_2l8XTCPAE
+- Link vídeo de instalação PostgreSQL (Windows): https://www.youtube.com/watch?v=L_2l8XTCPAE
 
-[x] - Link instalação PostgreSQL: https://www.postgresql.org/download/
+- Link instalação PostgreSQL: https://www.postgresql.org/download/
