@@ -7,4 +7,4 @@ uma série de relatórios. Os dados para o banco de dados serão fornecidos de u
 
 - Link vídeo de instalação PostgreSQL (Windows): https://www.youtube.com/watch?v=L_2l8XTCPAE
 
-- Link instalação PostgreSQL: https://www.postgresql.org/download/
+- Link instalação PostgreSQL (versão **15.2** será a utilizada no trabalho): https://www.postgresql.org/download/
