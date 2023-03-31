@@ -14,3 +14,5 @@ devem fazer acesso direto ao SGDB usando comandos SQL, sem camadas de software i
 
 - Link download do arquivo Amazon Product Co-purchasing Network Metadata 
 (extrair com 7-zip File Manager): https://snap.stanford.edu/data/amazon-meta.html
+
+- PostgreSQL Python: https://www.postgresqltutorial.com/postgresql-python/
