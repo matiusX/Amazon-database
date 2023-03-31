@@ -12,5 +12,5 @@ devem fazer acesso direto ao SGDB usando comandos SQL, sem camadas de software i
 
 - Link instalação PostgreSQL (versão **15.2** será a utilizada no trabalho): https://www.postgresql.org/download/
 
-- Link download do arquivo de entrada Amazon product co-purchasing network metadata 
+- Link download do arquivo de entrada Amazon Product Co-purchasing Network Metadata 
 (extrair usando 7-zip File Manager): https://snap.stanford.edu/data/amazon-meta.html
