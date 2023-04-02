@@ -8,12 +8,13 @@ uma série de relatórios. Os dados para o banco de dados serão fornecidos de u
 Os códigos fontes devem ser desenvolvidos em linguagem Python e o SGBD relacional usado deverá ser o PostgreSQL. Os scripts Python
 devem fazer acesso direto ao SGDB usando comandos SQL, sem camadas de software intermediário.
 
-- Link vídeo de instalação PostgreSQL (Windows): https://www.youtube.com/watch?v=L_2l8XTCPAE
+- Vídeo Instalação PostgreSQL (Windows): https://www.youtube.com/watch?v=L_2l8XTCPAE
 
-- Link instalação PostgreSQL (versão **15.2** será a utilizada no trabalho): https://www.postgresql.org/download/
+- Instalação PostgreSQL (versão **15.2** será a utilizada no trabalho): https://www.postgresql.org/download/
 
-- Link download do arquivo Amazon Product Co-purchasing Network Metadata 
-(extrair com 7-zip File Manager): https://snap.stanford.edu/data/amazon-meta.html
+- Amazon Product Co-purchasing Network Metadata (extrair com 7-zip File Manager): https://snap.stanford.edu/data/amazon-meta.html
+
+- 7-zip File Manager: https://www.7-zip.org/download.html
 
 - PostgreSQL Python: https://www.postgresqltutorial.com/postgresql-python/
 
