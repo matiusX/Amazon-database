@@ -10,7 +10,7 @@ devem fazer acesso direto ao SGDB usando comandos SQL, sem camadas de software i
 
 - Vídeo Instalação PostgreSQL (Windows): https://www.youtube.com/watch?v=L_2l8XTCPAE
 
-- Instalação PostgreSQL (versão **15.2** será a utilizada no trabalho): https://www.postgresql.org/download/
+- Instalação PostgreSQL (versão **14.7** será a utilizada no trabalho): https://www.postgresql.org/download/
 
 - Amazon Product Co-purchasing Network Metadata (extrair com 7-zip File Manager): https://snap.stanford.edu/data/amazon-meta.html
 
