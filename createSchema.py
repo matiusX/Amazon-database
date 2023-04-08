@@ -42,9 +42,12 @@ cur.execute("CREATE TABLE \"Similar\" (" +
 # Executa um comando: Cria a tabela Categories
 # cur.execute() ...
 
-# Executa um comando: Cria a tabela FatherCategories
-# cur.execute() ...
-
+# Executa um comando: Cria a tabela AllCategories
+cur.execute("CREATE TABLE AllCategories (" + 
+            "ID_Categoria VARCHAR(20)," + 
+            "Nome_Categoria VARCHAR(100) NOT NULL," + 
+            "PRIMARY KEY (ID_Categoria));" 
+) 
 
 # Executa um comando: Cria a tabela Reviews
 cur.execute("CREATE TABLE Reviews (" + 
