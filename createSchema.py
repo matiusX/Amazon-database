@@ -38,16 +38,25 @@ cur.execute("CREATE TABLE \"Similar\" (" +
             "FOREIGN KEY (ASIN_original) REFERENCES MainTable(ASIN));" 
 )
 
-
-# Executa um comando: Cria a tabela Categories
-# cur.execute() ...
-
 # Executa um comando: Cria a tabela AllCategories
 cur.execute("CREATE TABLE AllCategories (" + 
-            "ID_Categoria VARCHAR(20)," + 
+            "ID_Categoria INT," + 
             "Nome_Categoria VARCHAR(100) NOT NULL," + 
+            "UNIQUE (Nome_Categoria)," +
             "PRIMARY KEY (ID_Categoria));" 
 ) 
+
+# Executa um comando: Cria a tabela Categories
+cur.execute("CREATE TABLE Categories (" + 
+            "ID INT," +
+            "ASIN_original VARCHAR(10)," +
+            "Num_Categoria INT NOT NULL," +
+            "ID_Categoria INT NOT NULL," +
+            "UNIQUE (ID)," +
+            "PRIMARY KEY (ID, ASIN_original)," +
+            "FOREIGN KEY (ASIN_original) REFERENCES MainTable(ASIN)," +
+            "FOREIGN KEY (ID_Categoria) REFERENCES AllCategories(ID_Categoria));" 
+)
 
 # Executa um comando: Cria a tabela Reviews
 cur.execute("CREATE TABLE Reviews (" + 
