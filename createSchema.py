@@ -48,12 +48,10 @@ cur.execute("CREATE TABLE AllCategories (" +
 
 # Executa um comando: Cria a tabela Categories
 cur.execute("CREATE TABLE Categories (" + 
-            "ID INT," +
             "ASIN_original VARCHAR(10)," +
-            "Num_Categoria INT NOT NULL," +
-            "ID_Categoria INT NOT NULL," +
-            "UNIQUE (ID)," +
-            "PRIMARY KEY (ID, ASIN_original)," +
+            "Num_Categoria INT," +
+            "ID_Categoria INT," +
+            "PRIMARY KEY (ASIN_original, Num_Categoria, ID_Categoria)," +
             "FOREIGN KEY (ASIN_original) REFERENCES MainTable(ASIN)," +
             "FOREIGN KEY (ID_Categoria) REFERENCES AllCategories(ID_Categoria));" 
 )
