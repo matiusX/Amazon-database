@@ -80,6 +80,23 @@ cur.execute("CREATE TABLE ReviewsGeneralInfos (" +
             "FOREIGN KEY (ASIN_original) REFERENCES MainTable(ASIN));"
 )
 
+# Criar o trigger check_id_categoria_num_categoria
+cur.execute('''
+CREATE OR REPLACE FUNCTION check_id_categoria_num_categoria()
+RETURNS TRIGGER AS $$
+BEGIN
+    IF NEW.ID_Categoria > NEW.Num_Categoria THEN
+        RAISE EXCEPTION 'ID_Categoria cannot be greater than Num_Categoria';
+    END IF;
+    RETURN NEW;
+END;
+$$ LANGUAGE plpgsql;
+
+CREATE TRIGGER check_id_categoria_num_categoria
+BEFORE INSERT ON Categories
+FOR EACH ROW EXECUTE FUNCTION check_id_categoria_num_categoria();
+''')
+
 # Aplica as mudanças no BD
 conn.commit()
 
