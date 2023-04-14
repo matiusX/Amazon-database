@@ -36,8 +36,7 @@ cur.execute("CREATE TABLE \"Similar\" (" +
             "ASIN_original VARCHAR(10)," + 
             "ASIN_similar VARCHAR(10)," + 
             "PRIMARY KEY (ASIN_original, ASIN_similar)," + 
-            "FOREIGN KEY (ASIN_original) REFERENCES MainTable(ASIN))," +
-            "CHECK (ASIN_original <> ASIN_similar);" #verificação para descobrir se são diferentes
+            "FOREIGN KEY (ASIN_original) REFERENCES MainTable(ASIN));" 
 )
 
 # Executa um comando: Cria a tabela AllCategories
@@ -95,6 +94,19 @@ $$ LANGUAGE plpgsql;
 CREATE TRIGGER check_id_categoria_num_categoria
 BEFORE INSERT ON Categories
 FOR EACH ROW EXECUTE FUNCTION check_id_categoria_num_categoria();
+''')
+
+# Criar função para trigger
+cur.execute('''
+CREATE OR REPLACE FUNCTION check_asin_original_similar()
+RETURNS TRIGGER AS $$
+BEGIN
+    IF NEW.ASIN_original = NEW.ASIN_similar THEN
+        RAISE EXCEPTION 'ASIN_original cannot be equal to ASIN_similar';
+    END IF;
+    RETURN NEW;
+END;
+$$ LANGUAGE plpgsql;
 ''')
 
 # Aplica as mudanças no BD
