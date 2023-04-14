@@ -36,7 +36,8 @@ cur.execute("CREATE TABLE \"Similar\" (" +
             "ASIN_original VARCHAR(10)," + 
             "ASIN_similar VARCHAR(10)," + 
             "PRIMARY KEY (ASIN_original, ASIN_similar)," + 
-            "FOREIGN KEY (ASIN_original) REFERENCES MainTable(ASIN));" 
+            "FOREIGN KEY (ASIN_original) REFERENCES MainTable(ASIN))," +
+            "CHECK (ASIN_original <> ASIN_similar);" #verificação para descobrir se são diferentes
 )
 
 # Executa um comando: Cria a tabela AllCategories
