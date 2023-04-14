@@ -27,7 +27,8 @@ cur.execute("CREATE TABLE MainTable (" +
             "grupo VARCHAR(20)," +
             "salesrank INT," +
             "quant_categories INT," +
-            "UNIQUE (ID));"
+            "UNIQUE (ID));" + 
+            "UNIQUE (salesrank));"
 )
 
 # Executa um comando: Cria a tabela Similar
