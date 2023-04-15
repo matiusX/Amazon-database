@@ -23,7 +23,7 @@ cur = conn.cursor()
 cur.execute('''CREATE TABLE MainTable ( 
             ID INT NOT NULL,
             ASIN VARCHAR(10) PRIMARY KEY,
-            title VARCHAR(100),
+            title VARCHAR(600),
             grupo VARCHAR(20),
             salesrank INT,
             quant_categories INT,
