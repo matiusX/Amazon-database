@@ -216,72 +216,112 @@ class Produto:
     def reviews(self, value):
         self._reviews = value
 
+############
+#funcoes de extracao
+def get_id(linha):
+    id = linha.split(':')
+    id[1] = int(id[1])
+    return id
+
+def get_asin(linha):
+    asin = linha.split(':')
+    asin[1] = asin[1][:-1].lstrip()
+    return asin
+
+def get_title(linha):
+    title = linha.split(":", 1)
+    title[0] = title[0].lstrip()
+    title[1] = title[1][1:-2]
+    return title
+
+def get_group(linha):
+    group = linha.split(":", 1)
+    group[0] = group[0].lstrip()
+    group[1] = group[1][1:-1]    
+    return group
+
+def get_salesrank(linha):
+    salesrank = linha.split(":", 1)
+    salesrank[0] = salesrank[0].lstrip()
+    salesrank[1] = salesrank[1][:-1].lstrip()  
+    return salesrank
+
+def get_similars(linha):
+    similar = linha.split(':')
+    similar[0] = similar[0].lstrip() #titulo "similar"
+    similar[1] = similar[1].split("  ", 1)
+    similar[1][0] = int(similar[1][0]) #quantidade de similares
+    if(similar[1][0] == 0):
+        similar[1] = [0, []]
+    else: 
+        similar[1][1] =  similar[1][1][:-1].split("  ")
+        for item in similar[1]:
+            similar.append(item)
+        similar.pop(1)
+    return similar
 ###############################################################
 vet_products = []
 vet_categories = []
+vet_reviews_general_infos = []
 vet_reviews = []
-with open('/home/matheus/Documents/A_COMPUTACAO/BD1/Trabalho-1-BD/ufam-db-tp1/database/5_data.txt', 'r') as arquivo:
+with open('/home/matheus/Documents/A_COMPUTACAO/BD1/Trabalho-1-BD/ufam-db-tp1/database/60_data.txt', 'r') as arquivo:
     linhas = arquivo.readlines()
 
-for i in range(0, len(linhas)):
+i = 0
+while i < len(linhas):
     linha = linhas[i]
     #Tratamendo do ID e caso produto sem info
     if linha.startswith("Id:"):
         #Novo elemento
-        id = linha.split(':')
-        id[1] = int(id[1])
-        print(id)  
-    
+        id = get_id(linha)
+        asin = get_asin(linhas[i+1])
+        if not linhas[i+2].startswith("  d"):
+            title = get_title(linhas[i+2])
+            group = get_group(linhas[i+3])
+            salesrank = get_salesrank(linhas[i+4])
+            similar = get_similars(linhas[i+5])
+            print(id, asin, title, group, salesrank, similar)
+            main_infos = (id, asin, title, group, salesrank, similar)
+            vet_products.append(main_infos)
+ 
+    '''
     #Tratamento do ASIN
     elif linha.startswith("ASIN:"):
-        asin = linha.split(':')
-        asin[1] = asin[1][:-2].lstrip()
+        asin = get_asin(linha)
         print(asin)
         
         #caso de produto descontinuado
-        prox_linha = linhas[i+1]
-        if(prox_linha.startswith("  d")):
-            produto = Produto(id, asin, None, None, None, None, None, None)
-            vet_products.append(produto)
+        #comentado pq o professor falou que pode ignorar o descontinuado
+        #colocar tres aspas aqui
+      #  prox_linha = linhas[i+1]
+      #  if(prox_linha.startswith("  d")):
+      #      produto = Produto(id, asin, None, None, None, None, None, None)
+       #     vet_products.append(produto)
+        #colocar comentario aq tres aspas
     
     #Tratamento do titulo
     elif linha.startswith("  title:"):
-        title = linha.split(":", 1)
-        title[0] = title[0].lstrip()
-        title[1] = title[1][1:-2]
+        title = get_title(linha)
         print(title)
 
     #Tratamento dos grupos
     elif linha.startswith("  group:"):
-        group = linha.split(":", 1)
-        group[0] = group[0].lstrip()
-        group[1] = group[1][1:-1]
+        group = get_group(linha)
         print(group)
     
     #tratamento dos ranks
     elif linha.startswith("  salesrank:"):
-        salesrank = linha.split(":", 1)
-        salesrank[0] = salesrank[0].lstrip()
-        salesrank[1] = salesrank[1][:-1].lstrip()
+        salesrank = get_salesrank(linha)
         print(salesrank)
     
     #tratamento dos similares
     elif linha.startswith("  similar:"):
-        similar = linha.split(':')
-        similar[0] = similar[0].lstrip() #titulo "similar"
-        similar[1] = similar[1].split("  ", 1)
-        similar[1][0] = int(similar[1][0]) #quantidade de similares
-        if(similar[1][0] == 0):
-            similar[1] = [0, []]
-        else: 
-            similar[1][1] =  similar[1][1][:-1].split("  ")
-            for i in similar[1]:
-                similar.append(i)
-            similar.pop(1)
+        similar = get_similars(linha)
         print(similar)
+    ''' #_.FIM DO COMENTARIO
     
     #trata as categorias: vai na tabela principal e na tabela categories
-    elif linha.startswith("  categories:"):
+    if linha.startswith("  categories:"):
         categories_info = linha.split(':')
         categories_info[0] = categories_info[0].lstrip()
         categories_info[1] = int(categories_info[1])
@@ -305,7 +345,7 @@ for i in range(0, len(linhas)):
             index_cat = index_cat + 1
             linha_cat = linhas[aux]
     #trata as reviews: tabela principal, reviews, reviews general infos
-    elif linha.startswith("  reviews:"):
+    if linha.startswith("  reviews:"):
         reviews_infos = linha.split(":", 1)
         reviews_infos[0] = reviews_infos[0].lstrip()
         reviews_infos[1] = reviews_infos[1].split("  ")
@@ -315,14 +355,28 @@ for i in range(0, len(linhas)):
             aux[1] = float(aux[1])
             reviews_infos.append(aux)
         reviews_infos.pop(1)
-        reviews_infos[1]
-        print(reviews_infos)
-        posicao_review = i+1
+        reviews_infos_tuple = (asin[1], reviews_infos[1][1], reviews_infos[2][1], reviews_infos[3][1])
+        vet_reviews_general_infos.append(reviews_infos_tuple) #adicionar sobre informacoes gerais das reviews de um produto
+        posicao_review = i+0
         linha_atual = linhas[posicao_review]
-        while(linha_atual != ""):
-            print("EXISTE UMA REVIEW AKIR!!! TA BOM, GOSTOSAS????????: {}".format(linha_atual))
-            
-            #atualiza posicao
-            posicao_review = posicao_review + 1
-            linha_atual = linhas[posicao_review]
+        if(reviews_infos[1][1] != 0):#verifica se existem reviews
+            pattern="(\d{4}-\d{1,2}-\d{1,2})\s+cutomer:\s+([A-Z0-9]+)\s+rating:\s+(\d)\s+votes:\s+(\d+)\s+helpful:\s+(\d+)"
+            while(linha_atual != "\n" and linha_atual != None):#enquanto a linha eh uma review
+                review_identifiers = (asin[1], id[1])
+                review_data = re.findall(pattern, linha_atual)
+                for review in review_data:
+                    vet_reviews.append(review_identifiers+review)
+                    print(f"{review_identifiers+review}")
+                                       
+                #vai p proxima linha
+                posicao_review = posicao_review+1
+                if(posicao_review >= len(linhas)): ##se chegou ao fim, para o programa
+                    break
+                linha_atual = linhas[posicao_review]
+    i = i+1
+        
+print(vet_categories)  #->vetor que vai ser usado para inserir no banco
+print(vet_reviews)  
+print(vet_products)  
+print(vet_reviews_general_infos)  
 arquivo.close()
